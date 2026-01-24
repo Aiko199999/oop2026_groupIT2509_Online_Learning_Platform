@@ -36,15 +36,12 @@ public class Main {
     public static void main(String[] args) {
         IDB db = new DatabaseConnection();
 
-        // Инициализируем репозитории
         ICourseRepository courseRepo = new CourseRepositoryImpl(db);
         IEnrollmentRepository enrollRepo = new EnrollmentRepositoryImpl(db);
 
-        // Инициализируем сервис
         CourseService courseService = new CourseService(courseRepo, enrollRepo);
 
         try {
-            // Тестируем User Story 1: Запись на курс
             courseService.enrollUser(1, 1);
         } catch (CourseArchivedException e) {
             System.out.println(e.getMessage());
