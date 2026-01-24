@@ -1,7 +1,6 @@
 package edu.aitu.oop3.services;
 
 import edu.aitu.oop3.entities.Course;
-import edu.aitu.oop3.exceptions.CourseArchivedException;
 import edu.aitu.oop3.repositories.ICourseRepository;
 import edu.aitu.oop3.repositories.IEnrollmentRepository;
 
@@ -22,9 +21,8 @@ public class CourseService {
             return;
         }
 
-        // ПРОВЕРКА: Если курс в архиве — кидаем исключение (как в задании!)
         if (course.isArchived()) {
-            throw new CourseArchivedException("You can't enroll in '" + course.getTitle() + "', because it's archived");
+            throw new CourseArchivedException("You can't enroll in '" + course.getTitle() + "'. It's archived");
         }
 
         enrollmentRepo.enroll(userId, courseId);
