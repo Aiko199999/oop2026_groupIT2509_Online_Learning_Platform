@@ -24,7 +24,7 @@ public class CourseService {
 
         // ПРОВЕРКА: Если курс в архиве — кидаем исключение (как в задании!)
         if (course.isArchived()) {
-            throw new CourseArchivedException("You can't enroll in '" + course.getTitle() + "', because it's archived");
+            throw new CourseArchivedException("You can't enroll in '" + course.getTitle() + "'. It's archived");
         }
 
         enrollmentRepo.enroll(userId, courseId);

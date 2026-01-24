@@ -1,7 +1,6 @@
 package edu.aitu.oop3.repositories;
 
 import edu.aitu.oop3.db.IDB;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
