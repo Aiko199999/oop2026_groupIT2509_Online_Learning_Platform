@@ -25,11 +25,9 @@
 import edu.aitu.oop3.db.DatabaseConnection;
 import edu.aitu.oop3.db.IDB;
 import edu.aitu.oop3.exceptions.CourseArchivedException;
-import edu.aitu.oop3.repositories.CourseRepositoryImpl;
-import edu.aitu.oop3.repositories.EnrollmentRepositoryImpl;
-import edu.aitu.oop3.repositories.ICourseRepository;
-import edu.aitu.oop3.repositories.IEnrollmentRepository;
+import edu.aitu.oop3.repositories.*;
 import edu.aitu.oop3.services.CourseService;
+import edu.aitu.oop3.services.ProgressService;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,13 +35,17 @@ public class Main {
 
         ICourseRepository courseRepo = new CourseRepositoryImpl(db);
         IEnrollmentRepository enrollRepo = new EnrollmentRepositoryImpl(db);
+        IProgressRepository progressRepo = new ProgressRepositoryImpl(db);
+        IUserRepository userRepo = new UserRepositoryImpl(db);
 
         CourseService courseService = new CourseService(courseRepo, enrollRepo);
+        ProgressService progressService = new ProgressService(progressRepo);
 
         try {
             courseService.enrollUser(2, 2);
+            progressService.markLessonAsCompleted(2,1);
         } catch (CourseArchivedException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error:"+e.getMessage());
         }
     }
 }
