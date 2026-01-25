@@ -1,6 +1,7 @@
 package edu.aitu.oop3.services;
 
 import edu.aitu.oop3.entities.Course;
+import edu.aitu.oop3.exceptions.CourseArchivedException;
 import edu.aitu.oop3.repositories.ICourseRepository;
 import edu.aitu.oop3.repositories.IEnrollmentRepository;
 

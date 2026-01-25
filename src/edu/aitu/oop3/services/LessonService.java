@@ -1,6 +1,8 @@
 package edu.aitu.oop3.services;
 
 import edu.aitu.oop3.entities.Lesson;
+import edu.aitu.oop3.exceptions.LessonNotFoundException;
+import edu.aitu.oop3.exceptions.UserNotEnrolledException;
 import edu.aitu.oop3.repositories.IEnrollmentRepository;
 import edu.aitu.oop3.repositories.ILessonRepository;
 
@@ -13,7 +15,7 @@ public class LessonService {
         this.enrollmentRepo = enrollmentRepo;
     }
 
-    public void openLesson(int userId,int lessonId) throws LessonNotFoundException, UserNotEnrolledException{
+    public void openLesson(int userId,int lessonId) throws LessonNotFoundException, UserNotEnrolledException {
         Lesson lesson=lessonRepo.getById(lessonId);
         if(lesson==null) throw new LessonNotFoundException("Lesson not found.");
         if(!enrollmentRepo.isUserEnrolled(userId, lesson.getCourseId())){

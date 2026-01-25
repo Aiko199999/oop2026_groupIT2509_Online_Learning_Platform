@@ -27,7 +27,7 @@ public class DatabaseConnection implements IDB {
     }
 
     @Override
-    public static Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL,USER,PASSWORD);
     }
 }

@@ -24,13 +24,12 @@
 
 import edu.aitu.oop3.db.DatabaseConnection;
 import edu.aitu.oop3.db.IDB;
+import edu.aitu.oop3.exceptions.CourseArchivedException;
 import edu.aitu.oop3.repositories.CourseRepositoryImpl;
 import edu.aitu.oop3.repositories.EnrollmentRepositoryImpl;
 import edu.aitu.oop3.repositories.ICourseRepository;
 import edu.aitu.oop3.repositories.IEnrollmentRepository;
-import edu.aitu.oop3.exceptions.UserNotEnrolledException;
-import edu.aitu.oop3.exceptions.CourseArchivedException;
-import edu.aitu.oop3.exceptions.LessonNotFoundException;
+import edu.aitu.oop3.services.CourseService;
 
 public class Main {
     public static void main(String[] args) {
@@ -42,7 +41,7 @@ public class Main {
         CourseService courseService = new CourseService(courseRepo, enrollRepo);
 
         try {
-            courseService.enrollUser(1, 1);
+            courseService.enrollUser(2, 2);
         } catch (CourseArchivedException e) {
             System.out.println(e.getMessage());
         }
