@@ -1,0 +1,33 @@
+package edu.aitu.oop3.repositories;
+
+import edu.aitu.oop3.db.IDB;
+import edu.aitu.oop3.entities.Lesson;
+
+import java.sql.*;
+
+public class LessonRepositoryImpl implements ILessonRepository {
+    private final IDB db;
+
+    public LessonRepositoryImpl(IDB db) {
+        this.db = db;
+    }
+
+    @Override
+    public Lesson getById(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean lessonExists(int lessonId) {
+        String sql = "SELECT 1 FROM lessons WHERE id = ?";
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, lessonId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+}
