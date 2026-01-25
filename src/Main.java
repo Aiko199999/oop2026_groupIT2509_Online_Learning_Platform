@@ -35,15 +35,14 @@ public class Main {
 
         ICourseRepository courseRepo = new CourseRepositoryImpl(db);
         IEnrollmentRepository enrollRepo = new EnrollmentRepositoryImpl(db);
+        CourseService courseService=new CourseService(courseRepo,enrollRepo);
         IProgressRepository progressRepo = new ProgressRepositoryImpl(db);
+        ProgressService progressService=new ProgressService(progressRepo);
         IUserRepository userRepo = new UserRepositoryImpl(db);
 
-        CourseService courseService = new CourseService(courseRepo, enrollRepo);
-        ProgressService progressService = new ProgressService(progressRepo);
-
         try {
-            courseService.enrollUser(2, 2);
-            progressService.markLessonAsCompleted(2,1);
+            courseService.enrollUser(1, 1);
+            progressService.markLessonAsCompleted(1,1);
         } catch (CourseArchivedException e) {
             System.out.println("Error:"+e.getMessage());
         }
