@@ -30,7 +30,7 @@ public class CourseRepositoryImpl implements ICourseRepository {
                 courses.add(course);
             }
         } catch (SQLException e) {
-            System.out.println("Ошибка при получении списка курсов: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
         return courses;
     }
@@ -52,7 +52,7 @@ public class CourseRepositoryImpl implements ICourseRepository {
                 );
             }
         } catch (SQLException e) {
-            System.out.println("Ошибка при поиске курса: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
         return null;
     }
