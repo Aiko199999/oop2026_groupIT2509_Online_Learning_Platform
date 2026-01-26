@@ -14,6 +14,16 @@ public class LessonRepositoryImpl implements ILessonRepository {
 
     @Override
     public Lesson getById(int id) {
+        String sql = "SELECT id, course_id, title FROM lessons WHERE id = ?";
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Lesson(rs.getInt("id"), rs.getInt("course_id"), rs.getString("title"));}
+        } catch (SQLException e) {
+            System.out.println("DB Error: " + e.getMessage());
+        }
         return null;
     }
 
