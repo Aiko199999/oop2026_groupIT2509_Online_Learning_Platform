@@ -17,7 +17,7 @@ public class LessonService {
 
     public void openLesson(int userId,int lessonId) throws LessonNotFoundException, UserNotEnrolledException {
         Lesson lesson=lessonRepo.getById(lessonId);
-        if(lesson==null) throw new LessonNotFoundException("Lesson not found.");
+        if(lesson==null) throw new LessonNotFoundException("Lesson with this ID not found.");
         if(!enrollmentRepo.isUserEnrolled(userId, lesson.getCourseId())){
             throw new UserNotEnrolledException("You must enroll in the course.");
         }

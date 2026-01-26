@@ -25,8 +25,11 @@
 import edu.aitu.oop3.db.DatabaseConnection;
 import edu.aitu.oop3.db.IDB;
 import edu.aitu.oop3.exceptions.CourseArchivedException;
+import edu.aitu.oop3.exceptions.LessonNotFoundException;
+import edu.aitu.oop3.exceptions.UserNotEnrolledException;
 import edu.aitu.oop3.repositories.*;
 import edu.aitu.oop3.services.CourseService;
+import edu.aitu.oop3.services.LessonService;
 import edu.aitu.oop3.services.ProgressService;
 
 public class Main {
@@ -35,15 +38,19 @@ public class Main {
 
         ICourseRepository courseRepo = new CourseRepositoryImpl(db);
         IEnrollmentRepository enrollRepo = new EnrollmentRepositoryImpl(db);
-        CourseService courseService=new CourseService(courseRepo,enrollRepo);
         IProgressRepository progressRepo = new ProgressRepositoryImpl(db);
-        ProgressService progressService=new ProgressService(progressRepo);
         IUserRepository userRepo = new UserRepositoryImpl(db);
+        ILessonRepository lessonRepo = new LessonRepositoryImpl(db);
+
+        CourseService courseService=new CourseService(courseRepo,enrollRepo);
+        ProgressService progressService=new ProgressService(progressRepo);
+        LessonService lessonService=new LessonService(lessonRepo,enrollRepo);
 
         try {
             courseService.enrollUser(1, 1);
             progressService.markLessonAsCompleted(1,1);
-        } catch (CourseArchivedException e) {
+            lessonService.openLesson(1,1);
+        } catch (CourseArchivedException | UserNotEnrolledException | LessonNotFoundException e) {
             System.out.println("Error:"+e.getMessage());
         }
     }
