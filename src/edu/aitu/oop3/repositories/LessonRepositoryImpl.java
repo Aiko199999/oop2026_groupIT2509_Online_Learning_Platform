@@ -20,7 +20,13 @@ public class LessonRepositoryImpl implements ILessonRepository {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Lesson(rs.getInt("id"), rs.getInt("course_id"), rs.getString("title"));}
+                return edu.aitu.oop3.factories.LessonFactory.createLesson(
+                        "TEXT",
+                        rs.getInt("id"),
+                        rs.getInt("course_id"),
+                        rs.getString("title")
+                );
+            }
         } catch (SQLException e) {
             System.out.println("DB Error: " + e.getMessage());
         }

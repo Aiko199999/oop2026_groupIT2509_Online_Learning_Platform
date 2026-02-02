@@ -1,6 +1,6 @@
 package edu.aitu.oop3.entities;
 
-public class Lesson {
+public abstract class Lesson {
     private int id;
     private int courseId;
     private String title;
@@ -10,6 +10,8 @@ public class Lesson {
         this.courseId = courseId;
         this.title = title;
     }
+
+    public abstract String getLessonType();
 
     public int getId() {
         return id;

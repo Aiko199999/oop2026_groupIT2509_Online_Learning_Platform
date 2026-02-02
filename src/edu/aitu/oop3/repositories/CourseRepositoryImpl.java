@@ -13,7 +13,7 @@ public class CourseRepositoryImpl implements ICourseRepository {
     }
 
     @Override
-    public List<Course> getAllCourses() {
+    public List<Course> getAll() {
         List<Course> courses = new ArrayList<>();
         String sql = "SELECT id, title, is_archived FROM courses";
 
@@ -22,11 +22,11 @@ public class CourseRepositoryImpl implements ICourseRepository {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Course course = new Course(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getBoolean("is_archived")
-                );
+                Course course = new Course.Builder()
+                        .setId(rs.getInt("id"))
+                        .setTitle(rs.getString("title"))
+                        .setIsArchived(rs.getBoolean("is_archived"))
+                        .build();
                 courses.add(course);
             }
         } catch (SQLException e) {
@@ -36,7 +36,7 @@ public class CourseRepositoryImpl implements ICourseRepository {
     }
 
     @Override
-    public Course getCourseById(int id) {
+    public Course getById(int id) {
         String sql = "SELECT id, title, is_archived FROM courses WHERE id = ?";
         try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -45,11 +45,11 @@ public class CourseRepositoryImpl implements ICourseRepository {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return new Course(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getBoolean("is_archived")
-                );
+                return new Course.Builder()
+                        .setId(rs.getInt("id"))
+                        .setTitle(rs.getString("title"))
+                        .setIsArchived(rs.getBoolean("is_archived"))
+                        .build();
             }
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
